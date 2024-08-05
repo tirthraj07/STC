@@ -19,7 +19,7 @@ print("Model 1 Loaded.")
 
 print("Creating a Test set for checking accuracy..")
 testset = datasets.MNIST(
-    "./MNIST_data/", download=False, train=False, transform=transform
+    "./MNIST_data/", download=True, train=False, transform=transform
 )
 print("Test set created of length : " + str(len(testset)))
 
