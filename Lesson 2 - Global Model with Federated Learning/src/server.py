@@ -34,6 +34,14 @@ def get_weights(net):
     ]
     return ndarrays
 
+"""
+facilitate automatic model transfer at the end of training.
+or
+Use a shared storage system accessible by both the server and clients to save and retrieve the model.
+"""
+def transfer_final_model_to_clients(model_path):
+    pass
+
 def evaluate(server_round, parameters, config):
     net = SimpleModel()
     set_weights(net, parameters)
@@ -53,6 +61,7 @@ def evaluate(server_round, parameters, config):
         torch.save(net.state_dict(), model_save_path)
         cm = compute_confusion_matrix(net, testset)
         plot_confusion_matrix(cm, "Final Global Model", "../plots/confusion_matrix/final_global_model.png")
+        transfer_final_model_to_clients(model_save_path)
     else:
         model_save_path = f"../models/global/{server_round}_round_global_model.pth"
         torch.save(net.state_dict(), model_save_path)

@@ -33,11 +33,15 @@ class FlowerClient(NumPyClient):
         self.net = net
         self.trainset = trainset
         self.testset = testset
+        self.round_number = 0
 
     # Train the model
     def fit(self, parameters, config):
         set_weights(self.net, parameters)
         train_model(self.net, self.trainset)
+        model_save_path = f"../models/client/client1/round_{self.round_number}_model.pth"
+        torch.save(self.net.state_dict(), model_save_path)
+        self.round_number += 1
         return get_weights(self.net), len(self.trainset), {}
 
     # Test the model

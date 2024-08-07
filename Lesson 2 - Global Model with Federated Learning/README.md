@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 Step 4: Create necessary directories if not exists
 ```bash
-mkdir plots/distribution,plots/confusion_matrix,models/global,training,testing
+mkdir plots/distribution,plots/confusion_matrix,models/global,models/client/client0,models/client/client1,models/client/client2,training,testing
 ```
 
 Step 5: Run `setup.py`
