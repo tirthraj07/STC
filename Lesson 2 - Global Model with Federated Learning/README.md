@@ -6,7 +6,7 @@ pip install virtualenv
 ```
 Step 2: Create a virtual environment in the Lesson 1 folder and activate
 ```bash
-cd '.\Lesson 1 - Distributed Models\'
+cd '.\Lesson 2 - Global Model with Federated Learning\'
 virtualenv env
 cd .\env\
 .\Scripts\activate
