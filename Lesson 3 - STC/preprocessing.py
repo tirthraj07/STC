@@ -103,3 +103,10 @@ Mean ap_lo: 81.32002165769141
 Median ap_lo: 80.0
 Mode ap_lo: 80
 '''
+
+dataset = pd.read_csv("./dataset/cleaned_health_data.csv")
+corr_matrix = dataset.corr()
+print(corr_matrix)
+dataset.drop(['gender', 'weight' ,'height', 'smoke', 'alco', 'active', 'gluc'], axis = 1, inplace=True)
+dataset.to_csv("./dataset/final_health_data.csv", index=False) 
+

@@ -46,14 +46,13 @@ params = ndarrays_to_parameters(model.get_weights())
 start_server(
   server_address="0.0.0.0:8000",
   config=ServerConfig(num_rounds=10),
-  strategy=FedProx(
+  strategy=FedAvg(
         fraction_fit=1.0,
         fraction_evaluate=1.0,
         initial_parameters=params,
         evaluate_fn=evaluate,
         min_fit_clients=3,      
         min_evaluate_clients=3,  
-        min_available_clients=3,
-        proximal_mu=0.5
+        min_available_clients=3
     )
 )

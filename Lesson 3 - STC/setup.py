@@ -27,24 +27,6 @@ def plot_distributions(data, folder_path):
     plt.title('Age Distribution')
     plt.xlabel('Age (years)')
     
-    # Height distribution (cm)
-    plt.subplot(4, 3, 2)
-    plt.hist(data['height'], bins=20, color='green', alpha=0.7)
-    plt.title('Height Distribution')
-    plt.xlabel('Height (cm)')
-    
-    # Weight distribution (kg)
-    plt.subplot(4, 3, 3)
-    plt.hist(data['weight'], bins=20, color='purple', alpha=0.7)
-    plt.title('Weight Distribution')
-    plt.xlabel('Weight (kg)')
-    
-    # Gender distribution
-    plt.subplot(4, 3, 4)
-    plt.bar(data['gender'].value_counts().index, data['gender'].value_counts().values, color='orange', alpha=0.7)
-    plt.title('Gender Distribution')
-    plt.xlabel('Gender (1=Female, 2=Male)')
-    
     # Systolic blood pressure (ap_hi) distribution
     plt.subplot(4, 3, 5)
     plt.hist(data['ap_hi'], bins=20, color='cyan', alpha=0.7)
@@ -56,36 +38,6 @@ def plot_distributions(data, folder_path):
     plt.hist(data['ap_lo'], bins=20, color='pink', alpha=0.7)
     plt.title('Diastolic Blood Pressure Distribution')
     plt.xlabel('Diastolic BP (ap_lo)')
-    
-    # Cholesterol distribution
-    plt.subplot(4, 3, 7)
-    plt.bar(data['cholesterol'].value_counts().index, data['cholesterol'].value_counts().values, color='red', alpha=0.7)
-    plt.title('Cholesterol Distribution')
-    plt.xlabel('Cholesterol Levels (1=Normal, 2=Above, 3=Well Above)')
-    
-    # Glucose levels distribution
-    plt.subplot(4, 3, 8)
-    plt.bar(data['gluc'].value_counts().index, data['gluc'].value_counts().values, color='magenta', alpha=0.7)
-    plt.title('Glucose Levels Distribution')
-    plt.xlabel('Glucose Levels (1=Normal, 2=Above, 3=Well Above)')
-    
-    # Smoking (binary) distribution
-    plt.subplot(4, 3, 9)
-    plt.bar(data['smoke'].value_counts().index, data['smoke'].value_counts().values, color='yellow', alpha=0.7)
-    plt.title('Smoking Distribution')
-    plt.xlabel('Smoking (0=No, 1=Yes)')
-    
-    # Alcohol intake (binary) distribution
-    plt.subplot(4, 3, 10)
-    plt.bar(data['alco'].value_counts().index, data['alco'].value_counts().values, color='brown', alpha=0.7)
-    plt.title('Alcohol Intake Distribution')
-    plt.xlabel('Alcohol (0=No, 1=Yes)')
-    
-    # Physical activity (binary) distribution
-    plt.subplot(4, 3, 11)
-    plt.bar(data['active'].value_counts().index, data['active'].value_counts().values, color='teal', alpha=0.7)
-    plt.title('Physical Activity Distribution')
-    plt.xlabel('Physical Activity (0=No, 1=Yes)')
     
     # Cardiovascular disease (cardio) distribution
     plt.subplot(4, 3, 12)
@@ -117,6 +69,13 @@ def split_save_and_plot(client_data, client_name):
     # Plot and save distributions for testing data
     plot_distributions(test, f'./dataset/{client_name}/testing/plots')
 
+    train = train.drop(columns=['age_years'])
+    test = test.drop(columns=['age_years'])
+    
+    # Save training and testing data
+    train.to_csv(f'./dataset/{client_name}/training/train.csv', index=False)
+    test.to_csv(f'./dataset/{client_name}/testing/test.csv', index=False)
+
 clients = ['client1', 'client2', 'client3']
 folders = ['training', 'testing']
 for client in clients:
@@ -125,14 +84,15 @@ for client in clients:
 
 os.makedirs(f'./dataset/global/plots', exist_ok=True)
 
-dataset = pd.read_csv('./dataset/cleaned_health_data.csv')
+dataset = pd.read_csv('./dataset/final_health_data.csv')
 dataset['age_years'] = dataset['age'] / 365
 
 dataset = dataset.sample(frac=1, random_state=42).reset_index(drop=True)
 global_train, global_test = train_test_split(dataset, test_size=0.2, random_state=42, stratify=dataset['cardio'])
-
 global_test.to_csv('./dataset/global/test.csv', index=False)
 plot_distributions(global_test,'./dataset/global/plots')
+global_test = global_test.drop(columns=['age_years'])
+global_test.to_csv('./dataset/global/test.csv', index=False)
 
 client1_data, client2_data, client3_data = np.array_split(global_train, 3)
 
