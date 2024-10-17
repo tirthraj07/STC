@@ -83,7 +83,7 @@ start_server(
         fraction_evaluate=0.0,
         initial_parameters=params,
         evaluate_fn=evaluate,
-        min_fit_clients=3,  
+        min_fit_clients=3,      
         min_evaluate_clients=3,  
         min_available_clients=3,
     )
