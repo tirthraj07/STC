@@ -1,7 +1,7 @@
 from typing import Dict
 from flwr.server import ServerApp
 from flwr.common import Context, Parameters
-from flwr.server.strategy import FedXgbBagging
+from flwr.server.strategy import FedXgbBagging,FedXgbCyclic,FedAvg
 from flwr.server import ServerConfig, start_server
 from logging import INFO, ERROR
 from flwr.common.logger import console_handler, log
@@ -49,7 +49,7 @@ def config_func(rnd: int) -> Dict[str, str]:
 parameters = Parameters(tensor_type="", tensors=[])
 
 # Define the FedXgbBagging strategy
-strategy = FedXgbBagging(
+strategy = FedXgbCyclic(
     fraction_fit=1.0,
     fraction_evaluate=1.0,
     evaluate_metrics_aggregation_fn=evaluate_metrics_aggregation,

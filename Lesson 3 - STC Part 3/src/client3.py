@@ -86,7 +86,7 @@ def client_fn(context):
     train_dmatrix, valid_dmatrix, num_train, num_val = load_data(partition_id, num_partitions)
 
     # cfg = replace_keys(unflatten_dict(context.run_config))
-    num_local_round = 10
+    num_local_round = 50
 
     return FlowerClient(
         train_dmatrix,
@@ -96,8 +96,8 @@ def client_fn(context):
         num_local_round,
         params={
             'objective': 'binary:logistic',
-            'eta': 0.1,  # Learning rate
-            'max_depth': 8,
+            'eta': 0.05,  # Learning rate
+            'max_depth': 6,
             'eval_metric': ['auc', 'logloss'],
             'nthread': 16,
             'num_parallel_tree': 1,
