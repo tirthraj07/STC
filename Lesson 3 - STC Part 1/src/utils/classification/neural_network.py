@@ -8,12 +8,11 @@ class NeuralNetworkAlgo(ClassificationAlgo):
         optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
         
         self.model = tf.keras.Sequential([
-            tf.keras.layers.Dense(64, activation='relu', input_shape=(4,)),  # 5 input features
+            tf.keras.layers.Dense(64, activation='relu', input_shape=(4,)),  
             tf.keras.layers.Dense(32, activation='relu'),
-            tf.keras.layers.Dense(1, activation='sigmoid')  # Binary classification
+            tf.keras.layers.Dense(1, activation='sigmoid')
         ])
         
-        # Compile the model with the custom optimizer
         self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     
     def train(self, location_of_training_dataset):
@@ -21,13 +20,10 @@ class NeuralNetworkAlgo(ClassificationAlgo):
         self.model.fit(X_train, y_train, epochs=10, batch_size=32)
     
     def test(self, location_of_testing_dataset):
-        # Load test data
         X_test, y_test = self.load_data(location_of_testing_dataset)
         
-        # Evaluate the model on test data; evaluate returns [loss, accuracy]
         loss, accuracy = self.model.evaluate(X_test, y_test)
         
-        # Return both loss and accuracy
         return loss, accuracy
     
     def get_weights(self):

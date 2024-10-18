@@ -19,33 +19,33 @@ import matplotlib.pyplot as plt
 '''
 
 def plot_distributions(data, folder_path):
-    plt.figure(figsize=(12, 10))  # Adjusted figure size
+    plt.figure(figsize=(15, 12))
     
     # Age distribution (years)
-    plt.subplot(2, 2, 1)  # Changed to 2x2 grid
+    plt.subplot(4, 3, 1)
     plt.hist(data['age_years'], bins=20, color='blue', alpha=0.7)
     plt.title('Age Distribution')
     plt.xlabel('Age (years)')
     
     # Systolic blood pressure (ap_hi) distribution
-    plt.subplot(2, 2, 2)  # Next subplot in the 2x2 grid
+    plt.subplot(4, 3, 5)
     plt.hist(data['ap_hi'], bins=20, color='cyan', alpha=0.7)
     plt.title('Systolic Blood Pressure Distribution')
     plt.xlabel('Systolic BP (ap_hi)')
     
     # Diastolic blood pressure (ap_lo) distribution
-    plt.subplot(2, 2, 3)
+    plt.subplot(4, 3, 6)
     plt.hist(data['ap_lo'], bins=20, color='pink', alpha=0.7)
     plt.title('Diastolic Blood Pressure Distribution')
     plt.xlabel('Diastolic BP (ap_lo)')
     
     # Cardiovascular disease (cardio) distribution
-    plt.subplot(2, 2, 4)
+    plt.subplot(4, 3, 12)
     plt.bar(data['cardio'].value_counts().index, data['cardio'].value_counts().values, color='brown', alpha=0.7)
     plt.title('Cardiovascular Disease Distribution')
     plt.xlabel('Cardio (0=Absence, 1=Presence)')
     
-    # Adjust layout and save plot
+    # Save plot
     plt.tight_layout()
     plt.savefig(f'{folder_path}/distributions.png')
     plt.close()

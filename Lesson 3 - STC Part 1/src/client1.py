@@ -1,4 +1,4 @@
-from utils.classification_factory import classification_algo_factory
+from utils.classification.neural_network import NeuralNetworkAlgo
 import os
 from flwr.client import NumPyClient, start_numpy_client
 from flwr.common import NDArrays, Scalar
@@ -7,12 +7,10 @@ from typing import Dict
 from dotenv import load_dotenv
 load_dotenv('../.env')
 
-CLASSIFICATION_ALGO = os.getenv('CLASSIFICATION_ALGO')
 CLIENT_TRAINING_SET = os.getenv('CLIENT_1_TRAINING_SET')
 CLIENT_TESTING_SET = os.getenv('CLIENT_1_TESTING_SET')
 GLOBAL_TESTING_SET = os.getenv('GLOBAL_TESTING_SET')
 CLIENT_NAME = 'client1'
-n_features=11
 
 class FlowerClient(NumPyClient):
     def __init__(self, model, trainset_location, testset_location):
@@ -45,6 +43,5 @@ class FlowerClient(NumPyClient):
         return loss, num_samples, {"accuracy": accuracy}
 
 
-
-model = classification_algo_factory(CLASSIFICATION_ALGO,n_features)
+model = NeuralNetworkAlgo()
 start_numpy_client(server_address="127.0.0.1:8000", client=FlowerClient(model, CLIENT_TRAINING_SET, CLIENT_TESTING_SET))    

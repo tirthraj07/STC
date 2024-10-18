@@ -1,0 +1,73 @@
+INFO :      [INIT]
+INFO :      Using initial global parameters provided by strategy
+INFO :      Evaluating initial global parameters
+
+INFO :      [ROUND 1]
+
+Global round AUC: 0.7886000000000001
+Client 1 AUC: 0.7852
+Client 2 AUC: 0.7827
+Client 3 AUC: 0.7979
+
+INFO :      [ROUND 2]
+
+Global round AUC: 0.7896333333333333
+Client 1 AUC: 0.7861
+Client 2 AUC: 0.7836
+Client 3 AUC: 0.7992
+
+INFO :      [ROUND 3]
+
+Global round AUC: 0.7897000000000001
+Client 1 AUC: 0.7835
+Client 2 AUC: 0.7998
+Client 3 AUC: 0.7858
+
+INFO :      [ROUND 4]
+
+Global round AUC: 0.7900333333333335
+Client 1 AUC: 0.7828
+Client 2 AUC: 0.7864
+Client 3 AUC: 0.8009
+
+INFO :      [ROUND 5]
+
+Global round AUC: 0.7900999999999999
+Client 1 AUC: 0.801
+Client 2 AUC: 0.7827
+Client 3 AUC: 0.7866
+
+INFO :      [ROUND 6]
+
+Global round AUC: 0.7902666666666666
+Client 1 AUC: 0.7866
+Client 2 AUC: 0.8017
+Client 3 AUC: 0.7825
+
+INFO :      [ROUND 7]
+
+Global round AUC: 0.7903
+Client 1 AUC: 0.7865
+Client 2 AUC: 0.8021
+Client 3 AUC: 0.7823
+
+INFO :      [ROUND 8]
+
+Global round AUC: 0.7901666666666667
+Client 1 AUC: 0.802
+Client 2 AUC: 0.7822
+Client 3 AUC: 0.7863
+
+INFO :      [ROUND 9]
+
+Global round AUC: 0.7902666666666668
+Client 1 AUC: 0.8025
+Client 2 AUC: 0.782
+Client 3 AUC: 0.7863
+
+INFO :      [ROUND 10]
+
+Global round AUC: 0.7904333333333334
+Client 1 AUC: 0.7867
+Client 2 AUC: 0.7815
+Client 3 AUC: 0.8031

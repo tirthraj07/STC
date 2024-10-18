@@ -7,24 +7,16 @@ import os
 from dotenv import load_dotenv
 load_dotenv('../.env')
 
-from utils.classification_factory import classification_algo_factory
+from utils.classification.neural_network import NeuralNetworkAlgo
 
-CLASSIFICATION_ALGO = os.getenv('CLASSIFICATION_ALGO')
 GLOBAL_TESTING_SET = os.getenv('GLOBAL_TESTING_SET')
 CLIENT_1_TESTING_SET = os.getenv('CLIENT_1_TESTING_SET')
 CLIENT_2_TESTING_SET = os.getenv('CLIENT_2_TESTING_SET')
 CLIENT_3_TESTING_SET = os.getenv('CLIENT_3_TESTING_SET')
-n_features=11
-
-# print(CLASSIFICATION_ALGO)
-# print(GLOBAL_TESTING_SET)
-# print(CLIENT_1_TESTING_SET)
-# print(CLIENT_2_TESTING_SET)
-# print(CLIENT_3_TESTING_SET)
 
 
 def evaluate(server_round, parameters, config):
-    model = classification_algo_factory(CLASSIFICATION_ALGO, n_features)
+    model = NeuralNetworkAlgo();
     model.set_weights(parameters)
 
     _,accuracy_global = model.test(GLOBAL_TESTING_SET)
@@ -38,7 +30,7 @@ def evaluate(server_round, parameters, config):
     log(INFO, "test accuracy on client3 testset: %.4f", accuracy_client3)
 
 
-model = classification_algo_factory(CLASSIFICATION_ALGO,n_features)
+model = NeuralNetworkAlgo()
 params = ndarrays_to_parameters(model.get_weights())
 
 
@@ -46,13 +38,14 @@ params = ndarrays_to_parameters(model.get_weights())
 start_server(
   server_address="0.0.0.0:8000",
   config=ServerConfig(num_rounds=10),
-  strategy=FedAvg(
+  strategy=FedProx(
         fraction_fit=1.0,
         fraction_evaluate=1.0,
         initial_parameters=params,
         evaluate_fn=evaluate,
         min_fit_clients=3,      
         min_evaluate_clients=3,  
-        min_available_clients=3
+        min_available_clients=3,
+        proximal_mu=0.03
     )
 )
